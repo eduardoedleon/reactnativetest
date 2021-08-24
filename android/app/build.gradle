@@ -126,7 +126,6 @@ android {
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     defaultConfig {
-        applicationId "com.reactnativetest"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 10
@@ -141,6 +140,12 @@ android {
         }
     }
     signingConfigs {
+        release {
+           storeFile file("release.keystore.jks")
+           storePassword System.getenv("KEYSTORE_STORE_PASSWORD")
+           keyAlias System.getenv("KEYSTORE_ALIAS")
+           keyPassword System.getenv("KEYSTORE_KEY_PASSWORD")
+        }
         debug {
             storeFile file('debug.keystore')
             storePassword 'android'
@@ -158,6 +163,19 @@ android {
             signingConfig signingConfigs.debug
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+        }
+    }
+
+    flavorDimensions "version"
+
+    productFlavors {
+        prod {
+            applicationId "dleon.reactnativetest"
+            dimension "version"
+        }
+        dev {
+            applicationId "com.reactnativetest"
+            dimension "version"
         }
     }
 
