@@ -8,6 +8,7 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint .",
+    "bundle-android-prod": "scripts/generate-android-prod-apk.sh",
     "version-bump-patch": "npm version patch",
     "version-bump--minor": "npm version minor",
     "version-bump--major": "npm version major",

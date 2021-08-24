@@ -18,6 +18,7 @@ jobs:
 
       - name: Version bump
         run: |
+          npm run bundle-android-prod
           npm version
 
       - uses: actions/setup-ruby@v1
