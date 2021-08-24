@@ -5,4 +5,4 @@ set -e
 
 git add android/app/build.gradle package.json
 
-git push && git push --tags
+#git push && git push --tags
