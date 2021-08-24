@@ -75,4 +75,4 @@ jobs:
 
       - name: Distribute app to Production  🚀
         run: |
-        (cd android && fastlane alpha)
+          (cd android && fastlane alpha)
