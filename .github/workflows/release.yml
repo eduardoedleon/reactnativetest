@@ -71,8 +71,8 @@ jobs:
 
       - name: Validate Google Play Store json_key works
         run: |
-          (cd android && fastlane run validate_play_store_json_key json_key:play_config.json)
+          (cd android && bundle exec fastlane run validate_play_store_json_key json_key:play_config.json)
 
-      - name: Distribute app to Production  🚀
+      - name: Distribute app to alpha  🚀
         run: |
-          (cd android && fastlane alpha)
+          (cd android && bundle exec fastlane alpha)
