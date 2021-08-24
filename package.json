@@ -8,10 +8,11 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint .",
+    "version-bump-patch": "npm version patch",
+    "version-bump--minor": "npm version minor",
+    "version-bump--major": "npm version major",
     "version": "scripts/version_bump.sh",
-    "postversion": "git push && git push --tags",
-    "bump-minor": "npm version minor --no-git-tag-version && bundle exec fastlane bump",
-    "bump-major": "npm version major --no-git-tag-version && bundle exec fastlane bump"
+    "postversion": "scripts/post_version_bump.sh"
   },
   "dependencies": {
     "react": "17.0.2",
