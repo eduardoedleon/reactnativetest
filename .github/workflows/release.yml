@@ -3,13 +3,12 @@ name: Release (Production)
 on:
   workflow_dispatch:
     inputs:
-      comments:
-        description: 'Distribution flavour'
+      versionType:
+        description: 'Version type patch | minor | major'
         required: true
-        default: 'default'
 
 jobs:
-  android-build-staging:
+  android-prod-publish:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,7 +17,7 @@ jobs:
 
       - name: Version bump
         run: |
-          npm version
+          npm version ${{ github.event.inputs.versionType }}
 
       - uses: actions/setup-ruby@v1
         with:
