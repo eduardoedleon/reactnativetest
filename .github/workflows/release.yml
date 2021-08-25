@@ -3,12 +3,16 @@ name: Release (Production)
 on:
   workflow_dispatch:
     inputs:
-      versionType:
-        description: 'Version type patch | minor | major'
+      version:
+        description: 'Version: patch | minor | major'
+        required: true
+      release:
+        description: 'Version type alpha | beta | prod'
         required: true
 
 jobs:
   android-prod-publish:
+    if: ${{ (github.event.inputs.version == 'patch' || github.event.inputs.version == 'minor' || github.event.inputs.version == 'major) && (github.event.inputs.release == 'alpha' || github.event.inputs.release == 'beta' || github.event.inputs.release == 'prod) }}
     runs-on: ubuntu-latest
 
     steps:
@@ -56,7 +60,7 @@ jobs:
 
       - name: Version bump
         run: |
-          npm version ${{ github.event.inputs.versionType }}
+          npm version ${{ github.event.inputs.version }}
 
       - name: Build bundle android
         run: |
@@ -75,7 +79,7 @@ jobs:
 
       - name: Distribute app to alpha  🚀
         run: |
-          (cd android && bundle exec fastlane alpha)
+          (cd android && bundle exec fastlane ${{ github.event.inputs.release }})
         env:
           KEYSTORE_KEY_ALIAS: ${{ secrets.KEYSTORE_KEY_ALIAS }}
           KEYSTORE_KEY_PASSWORD: ${{ secrets.KEYSTORE_KEY_PASSWORD }}
