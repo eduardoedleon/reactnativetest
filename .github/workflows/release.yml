@@ -12,7 +12,9 @@ on:
 
 jobs:
   android-prod-publish:
-    if: ${{ (github.event.inputs.version == 'patch') && ((github.event.inputs.release == 'alpha') || (github.event.inputs.release == 'beta') || (github.event.inputs.release == 'prod)) }}
+    env:
+      versions: ${{ ['patch','minor','major'] }}
+    if: ${{ contains( env.versions, github.event.inputs.version ) }}
     runs-on: ubuntu-latest
 
     steps:
