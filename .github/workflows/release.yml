@@ -12,9 +12,6 @@ on:
 
 jobs:
   android-prod-publish:
-    env:
-      versions: ${{ ['patch','minor','major'] }}
-    if: ${{ contains( env.versions, github.event.inputs.version ) }}
     runs-on: ubuntu-latest
 
     steps:
