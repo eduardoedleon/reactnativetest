@@ -8,9 +8,9 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint .",
-    "bundle-android-prod": "scripts/./generate-android-prod-apk.sh",
-    "version": "scripts/./version_bump.sh",
-    "postversion": "scripts/./post_version_bump.sh"
+    "bundle-android-prod": "scripts/generate-android-prod-apk.sh",
+    "version": "scripts/version_bump.sh",
+    "postversion": "scripts/post_version_bump.sh"
   },
   "dependencies": {
     "react": "17.0.2",
