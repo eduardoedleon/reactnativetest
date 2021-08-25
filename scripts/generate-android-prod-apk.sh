@@ -16,3 +16,6 @@ npm ci
 # Generate bundle
 react-native bundle --platform ${TARGET_PLATFORM} --dev false --entry-file index.js \
 --bundle-output ${ANDROID_BUNDLE_OUTPUT} --assets-dest ${ANDROID_ASSETS_DST}
+
+# Delete duplicate resources
+rm -rf android/app/src/main/res/drawable-*
