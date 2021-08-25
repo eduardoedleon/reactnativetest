@@ -60,6 +60,10 @@ jobs:
       - name: Version bump
         run: |
           npm version ${{ github.event.inputs.version }}
+        env:
+          USER_EMAIL: ${{ secrets.USER_EMAIL }}
+          USER_NAME: ${{ secrets.USER_NAME }}
+
 
       - name: Build bundle android
         run: |
