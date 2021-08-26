@@ -12,7 +12,6 @@ IOS_BUNDLE_OUTPUT='ios/globug/main.jsbundle'
 # Install dependencies
 cd "$BASE_PATH"
 rm -rf node_modules ios/Pods
-cat .env.stage > .env
 npm ci
 
 cd "$IOS_BASE_PATH"
