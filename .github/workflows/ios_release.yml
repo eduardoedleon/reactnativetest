@@ -22,7 +22,7 @@ env:
 
 jobs:
   ios:
-    runs-on: macmini
+    runs-on: macos-latest
     timeout-minutes: 45
     steps:
       - name: Checkout
