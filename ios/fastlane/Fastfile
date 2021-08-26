@@ -1,0 +1,69 @@
+default_platform(:ios)
+
+app_name              = 'ReactNativeTest'
+team_id               = ENV["APPLE_TEAM_ID"]
+cert                  = ENV["APPLE_CERT"]
+key                   = ENV["APPLE_KEY"]
+key_pwd               = ENV["APPLE_KEY_PASSWORD"]
+
+platform :ios do
+
+  lane :set_signing do
+    # Create keychain - (Travis setup works for GitHhub Actions too)
+    setup_ci(
+      force: true,
+      provider: "travis"
+    )
+    # Unlock keychain and set as default
+    unlock_keychain(
+      path: "fastlane_tmp_keychain",
+      password: "",
+      set_default: true
+    )
+    # Import .cer and .p12 - this is a workaround for fastlane match when we retrieve certs from a custom location
+    import_certificate(
+      certificate_path: key,
+      certificate_password: key_pwd,
+      keychain_name: "fastlane_tmp_keychain",
+      keychain_password: "",
+      log_output: true
+    )
+    import_certificate(
+      certificate_path: cert,
+      keychain_name: "fastlane_tmp_keychain",
+      keychain_password: "",
+      log_output: true
+    )
+  end
+
+  lane :build_and_sign do |options|
+    set_signing
+    # pod install
+    cocoapods
+    gym(
+      scheme: options[:scheme],
+      workspace: app_name+'.xcworkspace',
+      export_method: options[:method],
+      export_options: {iCloudContainerEnvironment: 'Production'},
+      clean: true,
+      include_bitcode: true,
+      output_name: options[:scheme]+".ipa",
+      export_team_id: team_id
+    )
+  end
+
+  lane :build_develop do
+    build_and_sign(
+      scheme: app_name+'-Develop',
+      method: 'ad-hoc'
+    )
+  end
+
+  lane :build_staging do
+    build_and_sign(
+      scheme: app_name+'-Staging',
+      method: 'ad-hoc'
+    )
+  end
+
+end

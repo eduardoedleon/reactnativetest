@@ -1,0 +1,49 @@
+name: Dev Releases
+
+on:
+  push:
+    branches:
+      - master
+
+env:
+  LANG: en_US.UTF-8
+  APPLE_PROFILE: ReactNativeTest
+  APPLE_CERT: distribution.cer
+  APPLE_KEY: Certificates.p12
+  APPLE_KEY_PASSWORD: ${{ secrets.FASTLANE_APPLE_KEY_PASSWORD }}
+  APPLE_TEAM_ID: ${{ secrets.FASTLANE_APPLE_TEAM_ID}}
+
+  FASTLANE_APPLE_CERT: ${{ secrets.FASTLANE_APPLE_CERT }}
+  FASTLANE_APPLE_KEY: ${{ secrets.FASTLANE_APPLE_KEY_PASSWORD }}
+  FASTLANE_ITC_TEAM_ID: ${{ secrets.FASTLANE_ITC_TEAM_ID}}
+  FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
+  FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}
+  FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}
+
+jobs:
+  ios:
+    runs-on: macmini
+    timeout-minutes: 45
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - uses: actions/setup-node@master
+
+      - name: Bundle IOS (adhoc)
+        run: |
+          npm run bundle-ios-stage
+
+      - name: Generate certificates and
+        run: |
+          echo "$FASTLANE_APPLE_CERT" > distribution.cer.b64
+          base64 -d -i distribution.cer.b64 > ./ios/$APPLE_PROFILE/$APPLE_CERT
+
+          echo "$FASTLANE_APPLE_KEY" > Certificates.p12.b64
+          base64 -d -i Certificates.p12.b64 > ./ios/$APPLE_PROFILE/$APPLE_KEY
+
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          mv ./ios/$APPLE_PROFILE ~/Library/MobileDevice/Provisioning\ Profiles/$APPLE_PROFILE
+
+      - name: Build with Fastlane
+        run: fastlane build_develop
+        working-directory: ios

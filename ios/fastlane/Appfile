@@ -1,0 +1,2 @@
+apple_id ENV["FASTLANE_APPLE_ID"]
+app_identifier ENV["FASTLANE_APP_IDENTIFIER"]
