@@ -31,7 +31,7 @@ jobs:
 
       - name: Bundle IOS (adhoc)
         run: |
-          npm run bundle-ios-stage
+          npm run bundle-ios-prod
 
       - name: Generate certificates and
         run: |
