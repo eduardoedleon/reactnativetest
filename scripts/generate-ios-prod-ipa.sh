@@ -3,8 +3,8 @@ set -e
 
 TARGET_PLATFORM='ios'
 IOS_ASSETS_DST='ios'
-IOS_OUTPUT_DIR='/tmp/fronde/mercury/globug/mobile-app/android/build/'
-IOS_BUNDLE_OUTPUT='ios/globug/main.jsbundle'
+IOS_OUTPUT_DIR='/tmp/fronde/mercury/ReactNativeTest/mobile-app/android/build/'
+IOS_BUNDLE_OUTPUT='ios/ReactNativeTest/main.jsbundle'
 
 [[ -z "$GITHUB_WORKSPACE" ]] && IOS_BASE_PATH="ios/" BASE_PATH="" \
 || IOS_BASE_PATH="${GITHUB_WORKSPACE}/ios/" BASE_PATH="${GITHUB_WORKSPACE}"
