@@ -7,14 +7,14 @@ on:
 
 env:
   LANG: en_US.UTF-8
-  APPLE_PROFILE: ReactNativeTest
+  APPLE_PROFILE: ReactNativeTestProfile
   APPLE_CERT: distribution.cer
   APPLE_KEY: Certificates.p12
   APPLE_KEY_PASSWORD: ${{ secrets.FASTLANE_APPLE_KEY_PASSWORD }}
   APPLE_TEAM_ID: ${{ secrets.FASTLANE_APPLE_TEAM_ID}}
 
   FASTLANE_APPLE_CERT: ${{ secrets.FASTLANE_APPLE_CERT }}
-  FASTLANE_APPLE_KEY: ${{ secrets.FASTLANE_APPLE_KEY_PASSWORD }}
+  FASTLANE_APPLE_KEY: ${{ secrets.FASTLANE_APPLE_KEY }}
   FASTLANE_ITC_TEAM_ID: ${{ secrets.FASTLANE_ITC_TEAM_ID}}
   FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
   FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}
@@ -35,6 +35,7 @@ jobs:
 
       - name: Generate certificates and
         run: |
+          mkdir ./ios/$APPLE_PROFILE
           echo "$FASTLANE_APPLE_CERT" > distribution.cer.b64
           base64 -d -i distribution.cer.b64 > ./ios/$APPLE_PROFILE/$APPLE_CERT
 
