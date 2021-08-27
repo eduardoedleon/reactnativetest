@@ -51,3 +51,7 @@ jobs:
       - name: Build with Fastlane
         run: fastlane build_app
         working-directory: ios
+
+      - name: Upload to testflight
+        run: fastlane upload_to_testflight
+        working-directory: ios
