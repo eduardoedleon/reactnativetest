@@ -7,7 +7,7 @@ on:
 
 env:
   LANG: en_US.UTF-8
-  APPLE_PROFILE: ReactNativeTestProfile
+#  APPLE_PROFILE: ReactNativeTestProfile
   APPLE_CERT: distribution.cer
   APPLE_KEY: Certificates.p12
   APPLE_KEY_PASSWORD: ${{ secrets.FASTLANE_APPLE_KEY_PASSWORD }}
@@ -33,17 +33,18 @@ jobs:
         run: |
           npm run bundle-ios-prod
 
-      - name: Generate certificates and
+      - name: Generate certificates
         run: |
-          mkdir ./ios/$APPLE_PROFILE
+#          mkdir ./ios/$APPLE_PROFILE
+
           echo "$FASTLANE_APPLE_CERT" > distribution.cer.b64
-          base64 -d -i distribution.cer.b64 > ./ios/$APPLE_PROFILE/$APPLE_CERT
+          base64 -d -i distribution.cer.b64 > ./ios/$APPLE_CERT
 
           echo "$FASTLANE_APPLE_KEY" > Certificates.p12.b64
-          base64 -d -i Certificates.p12.b64 > ./ios/$APPLE_PROFILE/$APPLE_KEY
+          base64 -d -i Certificates.p12.b64 > ./ios/$APPLE_KEY
 
-          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
-          mv ./ios/$APPLE_PROFILE ~/Library/MobileDevice/Provisioning\ Profiles/$APPLE_PROFILE
+#          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+#          mv ./ios/$APPLE_PROFILE ~/Library/MobileDevice/Provisioning\ Profiles/$APPLE_PROFILE
 
       - name: Build with Fastlane
         run: fastlane build_develop
