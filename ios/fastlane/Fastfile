@@ -61,7 +61,7 @@ platform :ios do
 
   lane :build_staging do
     build_and_sign(
-      scheme: app_name+'-Staging',
+      scheme: app_name,
       method: 'ad-hoc'
     )
   end
