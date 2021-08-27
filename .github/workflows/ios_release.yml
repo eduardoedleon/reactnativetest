@@ -7,6 +7,7 @@ on:
 
 env:
   LANG: en_US.UTF-8
+  APPLE_PROFILE: 00544df2-ca3c-4336-ba62-788cbddff596.mobileprovision
   APPLE_CERT: distribution.cer
   APPLE_KEY: Certificates.p12
   APPLE_KEY_PASSWORD: ${{ secrets.FASTLANE_APPLE_KEY_PASSWORD }}
