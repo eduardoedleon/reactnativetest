@@ -52,14 +52,7 @@ platform :ios do
     )
   end
 
-  lane :build_develop do
-    build_and_sign(
-      scheme: app_name+'-Develop',
-      method: 'ad-hoc'
-    )
-  end
-
-  lane :build_staging do
+  lane :build_app do
     build_and_sign(
       scheme: app_name,
       method: 'ad-hoc'

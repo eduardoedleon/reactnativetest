@@ -41,5 +41,5 @@ jobs:
           base64 -d -i Certificates.p12.b64 > ./ios/$APPLE_KEY
 
       - name: Build with Fastlane
-        run: fastlane build_develop
+        run: fastlane build_app
         working-directory: ios
