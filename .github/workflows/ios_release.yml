@@ -7,7 +7,8 @@ on:
 
 env:
   LANG: en_US.UTF-8
-  APPLE_PROFILE: 00544df2-ca3c-4336-ba62-788cbddff596.mobileprovision
+  APPLE_PROFILE: ${{ secrets.APPLE_PROFILE }}
+  APPLE_PROFILE_FILE: ${{ secrets.APPLE_PROFILE_FILE }}
   APPLE_CERT: distribution.cer
   APPLE_KEY: Certificates.p12
   APPLE_KEY_PASSWORD: ${{ secrets.FASTLANE_APPLE_KEY_PASSWORD }}
@@ -41,7 +42,9 @@ jobs:
           echo "$FASTLANE_APPLE_KEY" > Certificates.p12.b64
           base64 -d -i Certificates.p12.b64 > ./ios/$APPLE_KEY
 
-          mkdir ./ios/$APPLE_PROFILE
+          echo "$APPLE_PROFILE_FILE" > appleProfileFile.p12.b64
+          base64 -d -i appleProfileFile.p12.b64 > ./ios/$APPLE_PROFILE
+
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           mv ./ios/$APPLE_PROFILE ~/Library/MobileDevice/Provisioning\ Profiles/$APPLE_PROFILE
 
