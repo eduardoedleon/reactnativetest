@@ -53,5 +53,5 @@ jobs:
         working-directory: ios
 
       - name: Upload to testflight
-        run: fastlane upload_to_testflight
+        run: fastlane beta
         working-directory: ios

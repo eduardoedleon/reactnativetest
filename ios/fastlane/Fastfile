@@ -59,4 +59,8 @@ platform :ios do
     )
   end
 
+  lane :beta do
+    upload_to_testflight
+  end
+
 end
