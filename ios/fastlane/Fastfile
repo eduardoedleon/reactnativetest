@@ -57,9 +57,7 @@ platform :ios do
       scheme: app_name,
       method: 'ad-hoc'
     )
-  end
 
-  lane :beta do
     upload_to_testflight
   end
 
