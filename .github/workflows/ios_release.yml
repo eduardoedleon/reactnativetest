@@ -49,7 +49,7 @@ jobs:
           mv ./ios/$APPLE_PROFILE ~/Library/MobileDevice/Provisioning\ Profiles/$APPLE_PROFILE
 
       - name: Build with Fastlane
-        run: fastlane build_app
+        run: fastlane build_ios
         working-directory: ios
 
       - name: Upload to testflight

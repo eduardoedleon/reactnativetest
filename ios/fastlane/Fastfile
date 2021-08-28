@@ -52,12 +52,14 @@ platform :ios do
     )
   end
 
-  lane :build_app do
+  lane :build_ios do
     build_and_sign(
       scheme: app_name,
       method: 'ad-hoc'
     )
+  end
 
+  lane :beta do
     upload_to_testflight
   end
 
