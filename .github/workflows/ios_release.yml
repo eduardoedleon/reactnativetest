@@ -1,9 +1,14 @@
 name: Dev Releases
 
 on:
-  push:
-    branches:
-      - master
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version: patch | minor | major'
+        required: true
+      release:
+        description: 'Version type alpha | beta | prod'
+        required: true
 
 env:
   LANG: en_US.UTF-8
