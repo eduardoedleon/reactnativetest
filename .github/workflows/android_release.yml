@@ -24,6 +24,7 @@ jobs:
 
       - name: Version bump and tagging
         run: |
+          npm ci
           npm version ${{ github.event.inputs.version }}
         env:
           USER_EMAIL: ${{ secrets.USER_EMAIL }}
