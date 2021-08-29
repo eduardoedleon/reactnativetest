@@ -486,6 +486,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = SM7W55E77Y;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = ReactNativeTest/Info.plist;
@@ -516,6 +517,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = SM7W55E77Y;
 				INFOPLIST_FILE = ReactNativeTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
