@@ -1,8 +1,5 @@
 #!/bin/bash
 set -e
-(cd android && gem install fastlane-plugin-increment_version_name)
-(cd android && gem install fastlane-plugin-increment_version_code)
-(cd android && gem install fastlane-plugin-load_json)
 
 (cd android && bundle exec fastlane version_bump)
 
