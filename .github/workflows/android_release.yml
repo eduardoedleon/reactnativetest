@@ -7,7 +7,7 @@ on:
         description: 'Version: patch | minor | major'
         required: true
       release:
-        description: 'Version type alpha | beta | prod'
+        description: 'Release type alpha | beta | prod'
         required: true
 
 env:

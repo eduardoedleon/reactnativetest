@@ -12,18 +12,17 @@ appstore_key_filepath = ENV["APP_STORE_CONNECT_API_KEY_FILE_PATH"]
 platform :ios do
 
   lane :set_signing do
-    # Create keychain - (Travis setup works for GitHhub Actions too)
     setup_ci(
       force: true,
       provider: "travis"
     )
-    # Unlock keychain and set as default
+
     unlock_keychain(
       path: "fastlane_tmp_keychain",
       password: "",
       set_default: true
     )
-    # Import .cer and .p12 - this is a workaround for fastlane match when we retrieve certs from a custom location
+
     import_certificate(
       certificate_path: key,
       certificate_password: key_pwd,
@@ -31,6 +30,7 @@ platform :ios do
       keychain_password: "",
       log_output: true
     )
+
     import_certificate(
       certificate_path: cert,
       keychain_name: "fastlane_tmp_keychain",
@@ -41,7 +41,6 @@ platform :ios do
 
   lane :build_and_sign do |options|
     set_signing
-    # pod install
     cocoapods
     gym(
       scheme: options[:scheme],
@@ -63,14 +62,13 @@ platform :ios do
   end
 
   lane :beta do
-    # Load an App Store Connect API token
     api_key = app_store_connect_api_key(
       key_id: appstore_key_id,
       issuer_id: appstore_issuer_id,
       key_filepath: appstore_key_filepath,
-      in_house: false # determines this is an AppStore team
+      in_house: false
     )
-    # Submit to TestFlight with the previous token
+
     upload_to_testflight(
       api_key: api_key,
       skip_waiting_for_build_processing: true
