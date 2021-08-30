@@ -21,21 +21,11 @@ env:
 
 jobs:
   android-version-bump:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
 
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@master
-
-      - uses: actions/setup-ruby@v1
-        with:
-          ruby-version: '2.6'
-          bundler-cache: true
-
-      - name: Install bundle
-        run: |
-          (cd android && bundle config path vendor/cache)
-          (cd android && bundle install --jobs 4 --retry 3)
 
       - name: Version bump and tagging
         run: |
@@ -44,21 +34,11 @@ jobs:
 
   android-prod-publish:
     needs: android-version-bump
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
 
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@master
-
-      - uses: actions/setup-ruby@v1
-        with:
-          ruby-version: '2.6'
-          bundler-cache: true
-
-      - name: Install bundle
-        run: |
-          (cd android && bundle config path vendor/cache)
-          (cd android && bundle install --jobs 4 --retry 3)
 
       - name: Cache Gradle
         uses: actions/cache@v1
@@ -91,8 +71,8 @@ jobs:
 
       - name: Validate Google Play Store json_key works
         run: |
-          (cd android && bundle exec fastlane run validate_play_store_json_key json_key:play_config.json)
+          (cd android && fastlane run validate_play_store_json_key json_key:play_config.json)
 
       - name: Distribute app to alpha  🚀
         run: |
-          (cd android && bundle exec fastlane ${{ github.event.inputs.release }})
+          (cd android && fastlane ${{ github.event.inputs.release }})
