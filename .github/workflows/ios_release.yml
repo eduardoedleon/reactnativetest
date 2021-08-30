@@ -1,4 +1,4 @@
-name: Dev Releases
+name: Release iOS - Production
 
 on:
   workflow_dispatch:
