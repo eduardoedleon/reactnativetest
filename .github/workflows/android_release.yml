@@ -1,4 +1,4 @@
-name: Release (Production)
+name: Release Android Production
 
 on:
   workflow_dispatch:
@@ -13,6 +13,8 @@ on:
 jobs:
   android-version-bump:
     runs-on: ubuntu-latest
+    env:
+      BUNDLE_GEMFILE: ${{ github.workspace }}/android/${{ matrix.gemfile }}.gemfile
 
     steps:
       - uses: actions/checkout@v2
