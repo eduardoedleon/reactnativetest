@@ -1,19 +1,6 @@
 default_platform(:android)
 
 platform :android do
-    desc 'Increment versionCode and set versionName to package.json version.'
-    package = load_json(json_path: "../package.json")
-    lane :version_bump do
-        increment_version_code(
-            gradle_file_path: "./app/build.gradle",
-        )
-
-        increment_version_name(
-            gradle_file_path: "./app/build.gradle",
-            version_name: package['version']
-        )
-    end
-
     desc "Deploy an alpha version to Google Play"
     lane :alpha do
         gradle(task: "bundleProdRelease")
