@@ -128,8 +128,8 @@ android {
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 23
-        versionName "0.0.24"
+        versionCode 24
+        versionName "0.0.25"
     }
     splits {
         abi {
