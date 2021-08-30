@@ -23,8 +23,10 @@ jobs:
           ruby-version: '2.6'
           bundler-cache: true
 
-      - name: Install dependencies
-        run: bundle install
+      - name: Install bundle
+        run: |
+          (cd android && bundle config path vendor/bundle)
+          (cd android && bundle install --jobs 4 --retry 3)
 
       - name: Version bump and tagging
         run: |
@@ -68,11 +70,6 @@ jobs:
 #
 #      - name: Grant Permission to Execute
 #        run: chmod +x android/gradlew
-#
-#      - name: Install bundle
-#        run: |
-#          (cd android && bundle config path vendor/bundle)
-#          (cd android && bundle install --jobs 4 --retry 3)
 #
 #      - name: Configure Keystore
 #        run: |
