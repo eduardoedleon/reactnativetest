@@ -194,13 +194,6 @@ android {
 
         }
     }
-
-    task printVersions {
-        doLast {
-            println "versionName: " + android.defaultConfig.versionName
-            println "versionCode: " + android.defaultConfig.versionCode
-        }
-    }
 }
 
 dependencies {
