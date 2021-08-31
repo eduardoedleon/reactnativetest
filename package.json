@@ -12,7 +12,6 @@
     "bundle-ios-prod": "scripts/generate-ios-prod-ipa.sh",
     "clean": "rm -rf node_modules ios/Pods ios/Podfile.lock ios/ReactNativeTest/main.jsbundle android/app/build android/app/src/main/assets/index.android.bundle",
     "reset:ios": "npm run clean && scripts/install-fresh-ios-dependencies.sh ",
-    "version": "scripts/version_bump.sh",
     "postversion": "scripts/post_version_bump.sh"
   },
   "dependencies": {
