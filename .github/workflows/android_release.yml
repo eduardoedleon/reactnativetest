@@ -69,6 +69,7 @@ jobs:
 
       - name: Build bundle android
         run: |
+          (cd android && gradle -q printVersions)
           npm run bundle-android-prod
 
       - name: Create Google Play Config file
