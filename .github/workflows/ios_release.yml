@@ -11,6 +11,9 @@ on:
         required: true
 
 env:
+  USER_EMAIL: ${{ secrets.USER_EMAIL }}
+  USER_NAME: ${{ secrets.USER_NAME }}
+
   LANG: en_US.UTF-8
   APPLE_PROFILE: ${{ secrets.APPLE_PROFILE }}
   APPLE_PROFILE_FILE: ${{ secrets.APPLE_PROFILE_FILE }}
