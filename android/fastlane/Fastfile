@@ -10,7 +10,7 @@ platform :android do
             properties: {
                 "versionCode" => version_code,
                 "versionName" => version_name,
-            }
+            },
             task: "bundleProdRelease"
         )
         upload_to_play_store(track: "alpha")
