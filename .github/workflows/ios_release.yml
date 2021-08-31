@@ -25,7 +25,6 @@ env:
   FASTLANE_APPLE_KEY: ${{ secrets.FASTLANE_APPLE_KEY }}
 
   FASTLANE_TEAM_ID: ${{ secrets.FASTLANE_APPLE_TEAM_ID}}
-  FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
   APP_STORE_CONNECT_API_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
   APP_STORE_CONNECT_API_KEY_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ISSUER_ID }}
   APP_STORE_CONNECT_API_KEY_FILE: ${{ secrets.APP_STORE_CONNECT_API_KEY_FILE }}
@@ -61,7 +60,7 @@ jobs:
         run: |
           EXTRACTED_VERSION=$(awk -F \" '/"version": ".+"/ { print $4; exit; }' package.json)
           cd "${GITHUB_WORKSPACE}/ios/"
-          agvtool new-marketing-version "$EXTRACTED_VERSION-${{ github.run_number }}"
+          agvtool new-marketing-version "$EXTRACTED_VERSION"
           agvtool new-version -all "${{ github.run_number }}"
 
       - name: Generate certificates
