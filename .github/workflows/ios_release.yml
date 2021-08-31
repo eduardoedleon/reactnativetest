@@ -38,7 +38,7 @@ jobs:
 
       - uses: actions/cache@v2
         with:
-          path: ${{ GITHUB_WORKSPACE }}/node_modules
+          path: node_modules
           key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}
 
       - name: Bundle IOS (adhoc)
@@ -60,7 +60,7 @@ jobs:
 
       - uses: actions/cache@v2
         with:
-          path: ${{ GITHUB_WORKSPACE }}/node_modules
+          path: node_modules
           key: ${{ runner.os }}-modules-${{ hashFiles('**/package-lock.json') }}
 
       - name: Generate certificates
