@@ -7,7 +7,7 @@ on:
         description: 'Version: patch | minor | major'
         required: true
       release:
-        description: 'Version type alpha | beta | prod'
+        description: 'Version type beta | prod'
         required: true
 
 env:
@@ -27,10 +27,25 @@ env:
   APP_STORE_CONNECT_API_KEY_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ISSUER_ID }}
   APP_STORE_CONNECT_API_KEY_FILE: ${{ secrets.APP_STORE_CONNECT_API_KEY_FILE }}
   APP_STORE_CONNECT_API_KEY_FILE_PATH: authKey.p8
+  PLATFORM_OS: ios
 
 jobs:
-  ios:
+  version-bump:
     runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@master
+
+      - name: Version bump and tagging
+        run: |
+          npm ci
+          npm version ${{ github.event.inputs.version }}
+
+  ios-prod-publish:
+    needs: version-bump
+    runs-on: macos-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -62,5 +77,5 @@ jobs:
         working-directory: ios
 
       - name: Upload to testflight
-        run: fastlane beta
+        run: fastlane ${{ github.event.inputs.release }}
         working-directory: ios
