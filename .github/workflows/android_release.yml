@@ -18,7 +18,6 @@ env:
   KEYSTORE_STORE_PASSWORD: ${{ secrets.KEYSTORE_STORE_PASSWORD }}
   ANDROID_KEYSTORE_FILE: ${{ secrets.ANDROID_KEYSTORE_FILE }}
   PLAY_CONFIG_JSON: ${{ secrets.PLAY_CONFIG_JSON }}
-  PLATFORM_OS: android
 
 jobs:
   version-bump:

@@ -9,9 +9,8 @@ export VERSION_NAME="$EXTRACTED_VERSION-$github.run_number"
 git config --local user.email $USER_EMAIL
 git config --local user.name $USER_NAME
 
-if ["$PLATFORM_OS" == "ios"]
+if ["$TARGET_PLATFORM" == "ios"]
 then
-  cd "${GITHUB_WORKSPACE}/ios/"
-  agvtool new-marketing-version "$VERSION_NAME"
-  agvtool new-version -all "$VERSION_CODE"
+  (cd "${GITHUB_WORKSPACE}/ios/" && agvtool new-marketing-version "$VERSION_NAME")
+  (cd "${GITHUB_WORKSPACE}/ios/" && agvtool new-version -all "$VERSION_CODE")
 fi
