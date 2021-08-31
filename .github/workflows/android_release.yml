@@ -62,11 +62,7 @@ jobs:
         working-directory: android
 
       - name: Build bundle android
-        run: |
-          EXTRACTED_VERSION=$(awk -F \" '/"version": ".+"/ { print $4; exit; }' package.json)
-          export VERSION_CODE=${{ github.run_number }}
-          export VERSION_NAME="$EXTRACTED_VERSION-${{ github.run_number }}"
-          npm run bundle-android-prod
+        run: npm run bundle-android-prod
 
       - name: Create Google Play Config file
         run: |
@@ -79,5 +75,9 @@ jobs:
         working-directory: android
 
       - name: Distribute app to alpha  🚀
-        run: fastlane ${{ github.event.inputs.release }}
+        run: |
+          EXTRACTED_VERSION=$(awk -F \" '/"version": ".+"/ { print $4; exit; }' package.json)
+          export VERSION_CODE=${{ github.run_number }}
+          export VERSION_NAME="$EXTRACTED_VERSION-${{ github.run_number }}"
+          fastlane ${{ github.event.inputs.release }}
         working-directory: android
