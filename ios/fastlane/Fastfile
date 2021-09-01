@@ -50,7 +50,7 @@ platform :ios do
       clean: true,
       include_bitcode: true,
       output_name: options[:scheme]+".ipa",
-      export_team_id: team_id
+      export_team_id: team_id,
       configuration: 'Prod'
     )
   end
