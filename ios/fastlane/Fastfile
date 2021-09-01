@@ -51,12 +51,13 @@ platform :ios do
       include_bitcode: true,
       output_name: options[:scheme]+".ipa",
       export_team_id: team_id
+      configuration: 'Prod'
     )
   end
 
   lane :build_ios do
     build_and_sign(
-      scheme: 'Prod',
+      scheme: app_name,
       method: 'ad-hoc'
     )
   end
