@@ -1,18 +1,10 @@
 name: Release Android - Production
 
 on:
-  workflow_dispatch:
-    inputs:
-      version:
-        description: 'Version: patch | minor | major'
-        required: true
-      release:
-        description: 'Release type alpha | beta | prod'
-        required: true
+  release:
+    types: [ published ]
 
 env:
-  USER_EMAIL: ${{ secrets.USER_EMAIL }}
-  USER_NAME: ${{ secrets.USER_NAME }}
   KEYSTORE_KEY_ALIAS: ${{ secrets.KEYSTORE_KEY_ALIAS }}
   KEYSTORE_KEY_PASSWORD: ${{ secrets.KEYSTORE_KEY_PASSWORD }}
   KEYSTORE_STORE_PASSWORD: ${{ secrets.KEYSTORE_STORE_PASSWORD }}
@@ -20,18 +12,6 @@ env:
   PLAY_CONFIG_JSON: ${{ secrets.PLAY_CONFIG_JSON }}
 
 jobs:
-  version-bump:
-    runs-on: macos-latest
-
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@master
-
-      - name: Version bump and tagging
-        run: |
-          npm ci
-          npm version ${{ github.event.inputs.version }}
-
   android-prod-publish:
     needs: version-bump
     runs-on: macos-latest
