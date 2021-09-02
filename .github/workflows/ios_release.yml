@@ -23,7 +23,6 @@ env:
 
 jobs:
   ios-prod-publish:
-    needs: version-bump
     runs-on: macos-latest
 
     steps:
