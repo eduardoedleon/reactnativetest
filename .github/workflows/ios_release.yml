@@ -63,5 +63,6 @@ jobs:
         working-directory: ios
 
       - name: Upload to testflight
-        run: fastlane ${{ github.event.inputs.release }}
+        run: fastlane beta
+
         working-directory: ios
