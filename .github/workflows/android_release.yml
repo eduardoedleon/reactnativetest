@@ -13,7 +13,6 @@ env:
 
 jobs:
   android-prod-publish:
-    needs: version-bump
     runs-on: macos-latest
 
     steps:
