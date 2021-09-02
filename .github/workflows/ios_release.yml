@@ -1,19 +1,10 @@
 name: Release iOS - Production
 
 on:
-  workflow_dispatch:
-    inputs:
-      version:
-        description: 'Version: patch | minor | major'
-        required: true
-      release:
-        description: 'Version type beta | prod'
-        required: true
+  release:
+    types: [ published ]
 
 env:
-  USER_EMAIL: ${{ secrets.USER_EMAIL }}
-  USER_NAME: ${{ secrets.USER_NAME }}
-
   LANG: en_US.UTF-8
   APPLE_PROFILE: ${{ secrets.APPLE_PROFILE }}
   APPLE_PROFILE_FILE: ${{ secrets.APPLE_PROFILE_FILE }}
@@ -31,18 +22,6 @@ env:
   APP_STORE_CONNECT_API_KEY_FILE_PATH: authKey.p8
 
 jobs:
-  version-bump:
-    runs-on: macos-latest
-
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@master
-
-      - name: Version bump and tagging
-        run: |
-          npm ci
-          npm version ${{ github.event.inputs.version }}
-
   ios-prod-publish:
     needs: version-bump
     runs-on: macos-latest
