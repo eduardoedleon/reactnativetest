@@ -751,7 +751,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = dleon.reactnativetest;
 				PRODUCT_NAME = ReactNativeTest;
-				PROVISIONING_PROFILE_SPECIFIER = ReactNativeTestProvisioningProfile;
+				PROVISIONING_PROFILE_SPECIFIER = ReactNativeTestAppStoreProfile;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
