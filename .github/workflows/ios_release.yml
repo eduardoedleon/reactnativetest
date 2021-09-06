@@ -64,5 +64,4 @@ jobs:
 
       - name: Upload to testflight
         run: fastlane beta
-
         working-directory: ios
