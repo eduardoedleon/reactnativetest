@@ -58,7 +58,7 @@ platform :ios do
   lane :build_ios do
     build_and_sign(
       scheme: app_name,
-      method: 'ad-hoc'
+      method: 'app-store'
     )
   end
 

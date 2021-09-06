@@ -13,6 +13,6 @@ platform :android do
             },
             task: "bundleProdRelease"
         )
-        upload_to_play_store(track: "alpha")
+        upload_to_play_store
     end
 end
