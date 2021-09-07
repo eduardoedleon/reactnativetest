@@ -2,7 +2,8 @@ name: Release iOS - Production
 
 on:
   release:
-    types: [ created, released ]
+    types:
+     - created
 
 jobs:
   prJob:
