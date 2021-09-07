@@ -1,6 +1,6 @@
 {
   "name": "reactnativetest",
-  "version": "0.0.72",
+  "version": "0.0.73",
   "private": true,
   "scripts": {
     "android": "react-native run-android --variant=devDebug",
