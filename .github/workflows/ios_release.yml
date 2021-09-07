@@ -2,7 +2,7 @@ name: Release iOS - Production
 
 on:
   release:
-    types: [ published ]
+    types: [ prereleased, published ]
 
 env:
   LANG: en_US.UTF-8
@@ -20,6 +20,9 @@ env:
   APP_STORE_CONNECT_API_KEY_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ISSUER_ID }}
   APP_STORE_CONNECT_API_KEY_FILE: ${{ secrets.APP_STORE_CONNECT_API_KEY_FILE }}
   APP_STORE_CONNECT_API_KEY_FILE_PATH: authKey.p8
+
+  APPLE_MERCURY_TEST_PROFILE_FILE: ${{ secrets.APPLE_MERCURY_TEST_PROFILE_FILE }}
+  APPLE_MERCURY_TEST_PROFILE_FILE_NAME: ${{ secrets.APPLE_MERCURY_TEST_PROFILE_FILE_NAME }}
 
 jobs:
   ios-prod-publish:
@@ -55,13 +58,29 @@ jobs:
           echo "$APPLE_PROFILE_FILE" > appleProfileFile.p12.b64
           base64 -d -i appleProfileFile.p12.b64 > ./ios/$APPLE_PROFILE
 
+          echo "$APPLE_MERCURY_TEST_PROFILE_FILE" > appleTestProfileFile.p12.b64
+          base64 -d -i appleTestProfileFile.p12.b64 > ./ios/$APPLE_MERCURY_TEST_PROFILE_FILE_NAME
+
           mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
           mv ./ios/$APPLE_PROFILE ~/Library/MobileDevice/Provisioning\ Profiles/$APPLE_PROFILE
+          mv ./ios/$APPLE_MERCURY_TEST_PROFILE_FILE_NAME ~/Library/MobileDevice/Provisioning\ Profiles/$APPLE_MERCURY_TEST_PROFILE_FILE_NAME
 
-      - name: Build with Fastlane
-        run: fastlane build_ios
+      - name: Build test with Fastlane
+        if: ${{ github.event.action == 'prereleased'}}
+        run: fastlane build_test
         working-directory: ios
 
       - name: Upload to testflight
-        run: fastlane distribute
+        if: ${{ github.event.action == 'prereleased'}}
+        run: fastlane distribute_test
+        working-directory: ios
+
+      - name: Build with Fastlane
+        if: ${{ github.event.action == 'published'}}
+        run: fastlane build_production
+        working-directory: ios
+
+      - name: Upload to app store
+        if: ${{ github.event.action == 'published'}}
+        run: fastlane distribute_production
         working-directory: ios

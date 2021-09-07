@@ -51,18 +51,49 @@ platform :ios do
       include_bitcode: true,
       output_name: options[:scheme]+".ipa",
       export_team_id: team_id,
+      configuration: options[:configuration]
+    )
+  end
+
+  # ----------
+  # -- TEST --
+  # ----------
+
+  lane :build_test do
+    build_and_sign(
+      scheme: app_name,
+      method: 'ad-hoc',
+      configuration: 'Test'
+    )
+  end
+
+  lane :distribute_test do
+    api_key = app_store_connect_api_key(
+      key_id: appstore_key_id,
+      issuer_id: appstore_issuer_id,
+      key_filepath: appstore_key_filepath,
+      in_house: false
+    )
+
+    upload_to_testflight(
+      api_key: api_key,
+      skip_waiting_for_build_processing: true
+    )
+  end
+
+  # ----------
+  # -- PROD --
+  # ----------
+
+  lane :build_production do
+    build_and_sign(
+      scheme: app_name,
+      method: 'app-store',
       configuration: 'Prod'
     )
   end
 
-  lane :build_ios do
-    build_and_sign(
-      scheme: app_name,
-      method: 'app-store'
-    )
-  end
-
-  lane :distribute do
+  lane :distribute_production do
     api_key = app_store_connect_api_key(
       key_id: appstore_key_id,
       issuer_id: appstore_issuer_id,
