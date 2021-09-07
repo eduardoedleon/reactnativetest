@@ -1,8 +1,12 @@
 name: Release iOS - Production
 
 on:
-  release:
-    types: [ released ]
+  workflow_dispatch:
+    inputs:
+      comments:
+        description: 'Distribution flavour'
+        required: true
+        default: 'default'
 
 env:
   LANG: en_US.UTF-8
