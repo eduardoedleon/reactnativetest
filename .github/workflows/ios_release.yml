@@ -66,21 +66,21 @@ jobs:
           mv ./ios/$APPLE_MERCURY_TEST_PROFILE_FILE_NAME ~/Library/MobileDevice/Provisioning\ Profiles/$APPLE_MERCURY_TEST_PROFILE_FILE_NAME
 
       - name: Build test with Fastlane
-        if: ${{ github.event.action == 'prereleased'}}
+        if: ${{ github.event.release.prerelease }}
         run: fastlane build_test
         working-directory: ios
 
       - name: Upload to testflight
-        if: ${{ github.event.action == 'prereleased'}}
+        if: ${{ github.event.release.prerelease }}
         run: fastlane distribute_test
         working-directory: ios
 
       - name: Build with Fastlane
-        if: ${{ github.event.action == 'published'}}
+        if: ${{ !github.event.release.prerelease }}
         run: fastlane build_production
         working-directory: ios
 
       - name: Upload to app store
-        if: ${{ github.event.action == 'published'}}
+        if: ${{ !github.event.release.prerelease }}
         run: fastlane distribute_production
         working-directory: ios
