@@ -11,4 +11,4 @@ jobs:
     steps:
       - name: Print GitHub event action
         run: |
-          echo "${{ github.event.release }}"
+          echo prerelease:"${{ github.event.release.prerelease }}"
