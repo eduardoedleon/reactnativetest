@@ -5,7 +5,7 @@ version_name        = ENV["VERSION_NAME"]
 
 platform :android do
     desc "Deploy an alpha version to Google Play"
-    lane :alpha do
+    lane :distribute do
         gradle(
             properties: {
                 "versionCode" => version_code,

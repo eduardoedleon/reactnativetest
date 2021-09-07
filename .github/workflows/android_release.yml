@@ -53,10 +53,10 @@ jobs:
         run: fastlane run validate_play_store_json_key json_key:play_config.json
         working-directory: android
 
-      - name: Distribute app to alpha  🚀
+      - name: Distribute app  🚀
         run: |
           EXTRACTED_VERSION=$(awk -F \" '/"version": ".+"/ { print $4; exit; }' ../package.json)
           export VERSION_CODE=${{ github.run_number }}
           export VERSION_NAME="$EXTRACTED_VERSION-${{ github.run_number }}"
-          fastlane beta
+          fastlane distribute
         working-directory: android
