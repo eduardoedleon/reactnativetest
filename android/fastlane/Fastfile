@@ -4,8 +4,20 @@ version_code        = ENV["VERSION_CODE"]
 version_name        = ENV["VERSION_NAME"]
 
 platform :android do
-    desc "Deploy an alpha version to Google Play"
-    lane :distribute do
+    desc "Publish an alpha version to Google Play"
+    lane :alpha do
+        gradle(
+            properties: {
+                "versionCode" => version_code,
+                "versionName" => version_name,
+            },
+            task: "bundleProdRelease"
+        )
+        upload_to_play_store(track: "alpha")
+    end
+
+    desc "Publish to Google Play Store"
+    lane :production do
         gradle(
             properties: {
                 "versionCode" => version_code,

@@ -2,7 +2,7 @@ name: Release Android - Production
 
 on:
   release:
-    types: [ published ]
+    types: [ prereleased, published ]
 
 env:
   KEYSTORE_KEY_ALIAS: ${{ secrets.KEYSTORE_KEY_ALIAS }}
@@ -53,10 +53,20 @@ jobs:
         run: fastlane run validate_play_store_json_key json_key:play_config.json
         working-directory: android
 
-      - name: Distribute app  🚀
+      - name: Distribute app to alpha track 🚀
+        if: ${{ github.event.action == 'prereleased'}}
         run: |
           EXTRACTED_VERSION=$(awk -F \" '/"version": ".+"/ { print $4; exit; }' ../package.json)
           export VERSION_CODE=${{ github.run_number }}
           export VERSION_NAME="$EXTRACTED_VERSION-${{ github.run_number }}"
-          fastlane distribute
+          fastlane alpha
+        working-directory: android
+
+      - name: Distribute app  🚀
+        if: ${{ github.event.action == 'published'}}
+        run: |
+          EXTRACTED_VERSION=$(awk -F \" '/"version": ".+"/ { print $4; exit; }' ../package.json)
+          export VERSION_CODE=${{ github.run_number }}
+          export VERSION_NAME="$EXTRACTED_VERSION-${{ github.run_number }}"
+          fastlane production
         working-directory: android
