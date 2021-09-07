@@ -2,7 +2,7 @@ name: Release iOS - Production
 
 on:
   release:
-    types: [ published ]
+    types: [ released ]
 
 env:
   LANG: en_US.UTF-8
