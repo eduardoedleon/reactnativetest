@@ -2,7 +2,7 @@ name: Release iOS - Production
 
 on:
   release:
-    types: [ released ]
+    types: [ created, released ]
 
 jobs:
   prJob:
@@ -11,4 +11,5 @@ jobs:
     steps:
       - name: Print GitHub event action
         run: |
-          echo prerelease:"${{ github.event.release.prerelease }}"
+          echo "event type is:" ${{ github.event.action }}
+          echo "prerelease:" ${{ github.event.release.prerelease }}
