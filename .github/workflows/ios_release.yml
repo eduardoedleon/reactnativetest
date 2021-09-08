@@ -1,12 +1,8 @@
 name: Release iOS - Production
 
 on:
-  workflow_dispatch:
-    inputs:
-      comments:
-        description: 'Distribution flavour'
-        required: true
-        default: 'default'
+  release:
+    types: [ published, released ]
 
 env:
   LANG: en_US.UTF-8
@@ -30,6 +26,8 @@ env:
 
 jobs:
   ios-prod-publish:
+    # This condition will prevent that the workflow executes twice when a release is published directly
+    if: ${{ !(github.event.action == 'published' && !github.event.release.prerelease) }}
     runs-on: macos-latest
 
     steps:
